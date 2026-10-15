@@ -27,3 +27,24 @@ document.getElementById('nores').hidden=any;}
 document.querySelectorAll('#law button').forEach(function(b){b.addEventListener('click',function(){cur=b.dataset.l;document.getElementById('lawinfo').innerHTML='<b>'+b.querySelector('b').textContent+'.</b> Категорий: '+b.dataset.n+'. Оригинал на форуме: <a href="'+b.dataset.u+'" target="_blank" rel="noopener">открыть тему</a>.';
 document.querySelectorAll('#law button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});apply();});});
 q.addEventListener('input',apply);apply();})();
+
+(function(){
+function cat(){var r=null;['a','b','c','d'].forEach(function(k){var e=document.getElementById('cat-'+k);if(!e.hidden)r=e;});return r;}
+['a','b','c'].forEach(function(k){var c=document.getElementById('cat-'+k),box=c.querySelector('.chips'),secs=c.querySelectorAll('.sec');
+function mk(t,i){var b=document.createElement('button');b.className='chip';b.type='button';b.textContent=t;b.setAttribute('aria-pressed',i===-1?'true':'false');
+b.addEventListener('click',function(){box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+secs.forEach(function(s,j){s.hidden=i!==-1&&i!==j;});});box.appendChild(b);}
+mk('Все',-1);secs.forEach(function(s,i){mk(s.querySelector('h2').textContent.replace(/\s*\(.*\)$/,''),i);});});
+var gq=document.getElementById('gq');
+gq.addEventListener('input',function(){var d=document.getElementById('cat-d'),v=gq.value.trim().toLowerCase();
+if(!d.hidden){var q=document.getElementById('q');q.value=gq.value;q.dispatchEvent(new Event('input'));return;}
+var c=cat();if(!c)return;var chips=c.querySelectorAll('.chip');
+if(!v){c.querySelectorAll('.sec,.sec .card').forEach(function(e){e.hidden=false;});chips.forEach(function(x,i){x.setAttribute('aria-pressed',i===0);});return;}
+chips.forEach(function(x,i){x.setAttribute('aria-pressed',i===0);});
+c.querySelectorAll('.sec').forEach(function(s){var cards=s.querySelectorAll('.card'),any=false;
+if(cards.length>1){cards.forEach(function(k){var ok=k.textContent.toLowerCase().indexOf(v)>-1;k.hidden=!ok;if(ok)any=true;});}
+else{any=s.textContent.toLowerCase().indexOf(v)>-1;cards.forEach(function(k){k.hidden=false;});}
+s.hidden=!any;});});
+document.querySelectorAll('#tabs button').forEach(function(b){b.addEventListener('click',function(){gq.value='';gq.dispatchEvent(new Event('input'));});});
+document.addEventListener('keydown',function(e){if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();gq.focus();}});
+})();
