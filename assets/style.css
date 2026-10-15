@@ -64,3 +64,35 @@ nav button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 .lawcards button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .infobar{background:var(--panel);border-radius:8px;padding:14px 20px;font-size:14px;margin-bottom:16px}
 .infobar b{color:#fff}
+
+nav{background:none;border:0;padding:0;margin-top:14px;display:flex;gap:6px;overflow-x:auto}
+nav button{padding:12px 18px 13px}
+.top{background:var(--bar);border-bottom:3px solid var(--gold);padding:16px 0 0}
+.top .in{max-width:1060px;margin:0 auto;padding:0 16px}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{margin:0;font:600 28px Oswald,Impact,sans-serif;color:#fff}
+.top .sub{font:500 13px Oswald,sans-serif;color:#cfd9c8}
+.search{display:flex;align-items:center;gap:10px;background:var(--ink);border:1px solid #3d5238;border-radius:8px;padding:0 14px;margin-top:14px}
+.search input{flex:1;background:none;border:0;color:var(--head);font:15px Roboto,sans-serif;padding:13px 0;min-width:0}
+.search input:focus{outline:none}
+.search:focus-within{border-color:var(--gold)}
+.search kbd{font:12px Consolas,monospace;color:var(--text);border:1px solid #3d5238;border-radius:4px;padding:1px 7px}
+main{max-width:1060px;margin:0 auto;padding:22px 16px 48px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px}
+.chip{font:500 14px Roboto,sans-serif;color:var(--head);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
+.chip:hover{border-color:#3d5238}
+.chip[aria-pressed=true]{background:var(--bar);border-color:#3d5238}
+.chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sec{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px 22px 22px;margin:0 0 22px}
+.eyebrow{font:700 12px Roboto,sans-serif;color:var(--gold);margin-bottom:4px}
+.sec>h2{margin:0 0 14px;font:600 24px Oswald,Impact,sans-serif;color:var(--head)}
+.sec .card{background:#1f2d1c;border:0;border-left:4px solid var(--gold);border-radius:4px;padding:14px 18px}
+.sec .card.bad{border-left-color:var(--red)}
+.sec .card h3{font:600 20px Oswald,sans-serif;color:#fff;margin:0 0 8px}
+.sec>.card+.card,.sec>.grid+.grid,.sec>.card+.grid,.sec>.grid+.card{margin-top:12px}
+.sec .grid>.card{margin-top:0}
+.sec .msg{background:var(--ink)}
+.sec .note{background:var(--bg)}
+.sec table{background:var(--bg)}
+#q{display:none}
+@media(max-width:600px){.top h1{font-size:23px}.sec{padding:16px 14px}.top .in{padding:0 12px}}
