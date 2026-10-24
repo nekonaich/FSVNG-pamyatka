@@ -15,7 +15,7 @@ try{navigator.clipboard.writeText(t).then(function(){b.textContent='Готово
 setTimeout(function(){b.textContent='Копировать'},1500);});
 document.querySelectorAll('#tabs button').forEach(function(b){b.addEventListener('click',function(){
 document.querySelectorAll('#tabs button').forEach(function(x){x.setAttribute('aria-selected',x===b)});
-['a','b','c','d'].forEach(function(k){document.getElementById('cat-'+k).hidden=b.dataset.t!==k;});});});
+['a','b','c','e','d'].forEach(function(k){document.getElementById('cat-'+k).hidden=b.dataset.t!==k;});});});
 
 (function(){var cur='uk',q=document.getElementById('q');
 function apply(){var v=q.value.trim().toLowerCase(),any=false;
@@ -29,8 +29,8 @@ document.querySelectorAll('#law button').forEach(function(x){x.setAttribute('ari
 q.addEventListener('input',apply);apply();})();
 
 (function(){
-function cat(){var r=null;['a','b','c','d'].forEach(function(k){var e=document.getElementById('cat-'+k);if(!e.hidden)r=e;});return r;}
-['a','b','c'].forEach(function(k){var c=document.getElementById('cat-'+k),box=c.querySelector('.chips'),secs=c.querySelectorAll('.sec');
+function cat(){var r=null;['a','b','c','e','d'].forEach(function(k){var e=document.getElementById('cat-'+k);if(!e.hidden)r=e;});return r;}
+['a','b','c','e'].forEach(function(k){var c=document.getElementById('cat-'+k),box=c.querySelector('.chips'),secs=c.querySelectorAll('.sec');
 function mk(t,i){var b=document.createElement('button');b.className='chip';b.type='button';b.textContent=t;b.setAttribute('aria-pressed',i===-1?'true':'false');
 b.addEventListener('click',function(){box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
 secs.forEach(function(s,j){s.hidden=i!==-1&&i!==j;});});box.appendChild(b);}
@@ -47,4 +47,25 @@ else{any=s.textContent.toLowerCase().indexOf(v)>-1;cards.forEach(function(k){k.h
 s.hidden=!any;});});
 document.querySelectorAll('#tabs button').forEach(function(b){b.addEventListener('click',function(){gq.value='';gq.dispatchEvent(new Event('input'));});});
 document.addEventListener('keydown',function(e){if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();gq.focus();}});
+})();
+
+(function(){
+var SITE={"version": "2026.10.25", "date": "25.10.2026", "added": ["Вкладка «Лекция по НПА»: субординация, приказы, взыскания, строй, КПП и шпаргалка", "Вкладка «Законодательная база»: УК, КоАП и Трудовой кодекс РО с поиском по статьям", "Вкладки «Тренировки» и «Выезд на стрельбище»", "Поиск в шапке и фильтры по разделам на каждой вкладке", "Это окно с уведомлением об обновлении сайта"], "changed": ["Новое оформление: шапка, разделы-карточки и тёмные карточки внутри", "Все материалы по набору собраны на одной вкладке"], "removed": ["Отдельная строка поиска и плашка «Что здесь есть» на вкладке «Законодательная база»"]},KEY='fsvng_seen_version',m=document.getElementById('upd'),dismissed=null;
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function list(t,c,a){return a&&a.length?'<h3 class="'+c+'">'+t+'</h3><ul>'+a.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>':'';}
+function seen(){try{localStorage.setItem(KEY,SITE.version);}catch(e){}}
+function show(d,fresh){document.getElementById('updt').textContent=fresh?'Доступна новая версия сайта':'Сайт обновлён';
+document.getElementById('updv').textContent='Версия '+d.version+' · '+d.date;
+document.getElementById('updl').innerHTML=list('Добавлено','add',d.added)+list('Изменено','chg',d.changed)+list('Убрано','rem',d.removed);
+var b=document.getElementById('updb'),x=document.getElementById('updx');b.textContent=fresh?'Обновить страницу':'Понятно';x.hidden=!fresh;
+b.onclick=function(){if(fresh){location.reload();}else{m.hidden=true;seen();}};
+x.onclick=function(){m.hidden=true;dismissed=d.version;};m.hidden=false;b.focus();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){document.getElementById(document.getElementById('updx').hidden?'updb':'updx').click();}});
+var s=null;try{s=localStorage.getItem(KEY);}catch(e){}
+if(s!==SITE.version)show(SITE,false);
+function check(){if(!/^https?:/.test(location.protocol))return;
+fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+if(d&&d.version&&d.version!==SITE.version&&d.version!==dismissed&&m.hidden)show(d,true);}).catch(function(){});}
+setTimeout(check,3000);setInterval(check,30000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)check();});
 })();
